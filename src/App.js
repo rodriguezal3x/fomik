@@ -1,4 +1,6 @@
-import { Formik } from "formik";
+import { Formik, Form,} from "formik";
+import TextInput from "./components/TextInput";
+import Checkbox from "./components/Checkbox";
 
 const validate = ( values ) => {
   const errors= {}
@@ -25,25 +27,17 @@ function App() {
         validate={ validate }
         onSubmit={ values => console.log(values) } 
     >
-        { formik =>
-            <form onSubmit={formik.handleSubmit}>
-                <label>Nombre</label>
-                <input type='text' {...formik.getFieldProps('name')}/>
-                {formik.touched.name && formik.errors.name ? 
-                    <div>{formik.errors.name}</div> : null }
-                <br/>
-                <label>Apellido</label>
-                <input type='text'{...formik.getFieldProps('lastname')}/>
-                { formik.touched.lastname && formik.errors.lastname ? 
-                    <div>{formik.errors.lastname}</div> : null }
-                <br/>
-                <label>Correo</label>
-                <input type='email' {...formik.getFieldProps('email')}/>
-                { formik.touched.email && formik.errors.email ? 
-                  <div>{formik.errors.email}</div> : null }
-                <button type="submit">Enviar</button>
-            </form>
-        }
+        <Form>
+            <TextInput name='name' label='Nombre'/>
+            <br/>
+            <TextInput name='lastname' label='Apellido'/>
+            <br/>
+            <TextInput name='email' label='Correo'/>
+            <Checkbox name="accep">
+                Aceptar terminos y Condiciones
+            </Checkbox>
+            <button type="submit">Enviar</button>
+        </Form>
     </Formik>
   );
 }
