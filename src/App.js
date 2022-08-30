@@ -1,24 +1,65 @@
-import logo from './logo.svg';
-import './App.css';
+import { useFormik } from "formik";
+
+const validate = ( values ) => {
+  const errors= {}
+
+  if (!values.name) {
+    errors.name = 'Requerido'        
+  } else if (values.name.length < 5) {
+    errors.name = 'El nombre es muy corto'
+  }
+
+  if (!values.lastname) {
+    errors.lastname = 'Requerido'        
+  } else if (values.lastname.length < 5) {
+    errors.lastname = 'El apellido es muy corto'
+  }
+
+  return errors
+}
 
 function App() {
+  const formik = useFormik({
+    initialValues:{
+      name:'',
+      lastname:'',
+      email:'',
+    },
+    validate,
+    onSubmit: values => console.log(values)
+  })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <form onSubmit={formik.handleSubmit}>
+      <label>Nombre</label>
+      <input
+        name="name"
+        type='text'
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.name}
+      />
+      {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null }
+      <br/>
+      <label>Apellido</label>
+      <input
+        name="lastname"
+        type='text'
+        onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
+        value={formik.values.lastname}
+      />
+      { formik.touched.lastname && formik.errors.lastname ? <div>{formik.errors.lastname}</div> : null }
+      <br/>
+      <label>Correo</label>
+      <input
+        name="email"
+        type='email'
+        onChange={formik.handleChange}
+        value={formik.values.email}
+      />
+      <button type="submit">Enviar</button>
+    </form>
   );
 }
 
