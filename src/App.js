@@ -39,7 +39,8 @@ function App() {
         onBlur={formik.handleBlur}
         value={formik.values.name}
       />
-      {formik.touched.name && formik.errors.name ? <div>{formik.errors.name}</div> : null }
+      {formik.touched.name && formik.errors.name ? 
+        <div>{formik.errors.name}</div> : null }
       <br/>
       <label>Apellido</label>
       <input
@@ -49,15 +50,20 @@ function App() {
         onBlur={formik.handleBlur}
         value={formik.values.lastname}
       />
-      { formik.touched.lastname && formik.errors.lastname ? <div>{formik.errors.lastname}</div> : null }
+      { formik.touched.lastname && formik.errors.lastname ? 
+        <div>{formik.errors.lastname}</div> : null }
       <br/>
       <label>Correo</label>
       <input
         name="email"
         type='email'
         onChange={formik.handleChange}
+        onBlur={formik.handleBlur}
         value={formik.values.email}
       />
+      { formik.touched.email && formik.errors.email ? 
+        <div>{formik.errors.email}</div> : null }
+      <br/>
       <button type="submit">Enviar</button>
     </form>
   );
